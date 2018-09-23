@@ -47,11 +47,18 @@ public class MainGamePresenter : MonoBehaviour {
 		{
 			//現在の入力文字を表示する
 			_view.UpdateTargetChara(nowTargetChara());
+
+			//ガイドの設定
+			_view.UpdateGuide(guildString(nowTargetChara()));
+
 			Debug.Log("targetカウンター更新:" +  _model.TargetIndex.Value);
 		});
 
 	 	//現在の入力文字を表示する
 		_view.UpdateTargetChara(nowTargetChara());
+
+		//ガイドの設定
+		_view.UpdateGuide(guildString(nowTargetChara()));
 	}
 
    /// <summary>
@@ -94,6 +101,27 @@ public class MainGamePresenter : MonoBehaviour {
 	private string nowTargetChara(){
 		string targetChar =  _model.TargetCharas.Substring(_model.TargetIndex.Value,1);
 		return targetChar;
+	}
+
+   	/// <summary>
+    /// 今回入力する文字列のガイドを出す
+    /// </summary>	
+	private string guildString(string targetChara){
+		string guide = "";
+		KanaKeyMapInfo info =  _model.KanaKeyMapInfoData[targetChara];
+
+		guide = info.typeKey;
+
+		//右シフト？左シフト？
+		if(info.leftShift == 1){
+			//左シフト
+			guide += " + 左シフト";
+		}
+		else if(info.rightShift == 1){
+			guide += " + 右シフト";
+		}
+
+		return guide;
 	}
 
 }

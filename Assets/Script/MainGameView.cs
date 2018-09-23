@@ -19,8 +19,8 @@ public class MainGameView : MonoBehaviour {
 		targetChara.text = str;
 	}
 	
-	// Update is called once per frame
-	void Update () {
-		
+	// Use this for initialization
+	public void UpdateGuide (string str) {
+		guide.text = str;
 	}
 }

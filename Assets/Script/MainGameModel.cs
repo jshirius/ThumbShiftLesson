@@ -4,10 +4,7 @@ using UnityEngine;
 using UniRx;
 
 public class MainGameModel  {
-	//打つ予定の文字列
-	//打つ文字のカウンター
-	//今回打つ予定の文字
-	//
+
 
 	//ターゲット文字列
 	private string _targetCharas;
@@ -38,6 +35,7 @@ public class MainGameModel  {
 
 		//ターゲット文字列を適当に入れておく
 		_targetCharas = "あいうえおしなもをゅ";
+	
 
 		//ターゲットindexの初期化
 		_targetIndex = new ReactiveProperty<int>();
@@ -47,8 +45,11 @@ public class MainGameModel  {
 	//次のターゲット文字列へ
 	public void NextTargetChara(){
 
-		if(_targetCharas.Length >= _targetIndex.Value){
+		if(_targetCharas.Length-1 > _targetIndex.Value){
 			_targetIndex.Value++;
+		}else{
+			//全ての文字を入力したら元に戻る
+			_targetIndex.Value = 0;
 		}
 		
 	}
