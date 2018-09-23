@@ -13,7 +13,7 @@ public class Util  {
     /// <summary>
     /// キー情報を取得する
     /// </summary>
-    public Dictionary<string,KanaKeyMapInfo> ReadKeyMapInfo(){
+    static public Dictionary<string,KanaKeyMapInfo> ReadKeyMapInfo(){
 
         TextAsset csvFile = Resources.Load("File/kana_key_map") as TextAsset; /* Resouces/CSV下のCSV読み込み */
         StringReader reader = new StringReader(csvFile.text);
