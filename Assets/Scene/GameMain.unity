@@ -615,6 +615,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 939183c86fc92465982ab9669534afb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _view: {fileID: 1818931857}
 --- !u!114 &1818931857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -628,4 +629,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetChara: {fileID: 329242159}
   guide: {fileID: 1227799720}
-  inputChara: {fileID: 532377900}

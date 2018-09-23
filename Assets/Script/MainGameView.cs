@@ -11,13 +11,12 @@ public class MainGameView : MonoBehaviour {
 	[SerializeField]
 	private Text guide;
 
-	
-	[SerializeField]
-	private Text inputChara;
+	//[SerializeField]
+	//private Text inputChara;
 
 	// Use this for initialization
-	void UpdateInputChara (string str) {
-		inputChara.text = str;
+	public void UpdateTargetChara (string str) {
+		targetChara.text = str;
 	}
 	
 	// Update is called once per frame

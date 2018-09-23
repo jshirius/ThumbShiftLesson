@@ -43,4 +43,20 @@ public class Util  {
 
     }
 
+    /// <summary>
+    /// IListをstring型に変換する
+    /// </summary>
+    static public  string  GetKeybordCharactor(IList<string> inputdatas){
+
+        string str = "";
+
+        foreach(string s in inputdatas){
+            str += s;
+        }        
+        Debug.Log("文字列:"+str + "文字数" + str.Length);
+
+        return str;
+    }
+
+
 }
