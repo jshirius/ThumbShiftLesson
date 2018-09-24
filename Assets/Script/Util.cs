@@ -30,7 +30,7 @@ public class Util  {
 
             KanaKeyMapInfo info = new KanaKeyMapInfo();
 
-            string[] str = line.Split(',');
+            string[] str = line.Split('\t');
             info.kana = str[0];
             info.typeKey = str[1];
             info.leftShift = int.Parse(str[2]);

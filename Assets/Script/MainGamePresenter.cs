@@ -33,8 +33,7 @@ public class MainGamePresenter : MonoBehaviour {
     		.Where(xs => xs.Count >= 1)
             .Subscribe(x =>
             {
-				//タイプ音
-				_typeSound.PlayOneShot(_typeSound.clip);
+
 
 				bool rtn = CheckTargetCharactor(nowTargetChara(),x);
 				//Debug.Log(rtn);
@@ -42,6 +41,9 @@ public class MainGamePresenter : MonoBehaviour {
 				InputResult(rtn);
 				if(rtn == true){
 					//正解！
+					//タイプ音
+					_typeSound.PlayOneShot(_typeSound.clip);					
+					
 					//次のターゲット文字列を設定する
 					_model.NextTargetChara();
 				}
