@@ -11,8 +11,8 @@ public class MainGameView : MonoBehaviour {
 	[SerializeField]
 	private Text guide;
 
-	//[SerializeField]
-	//private Text inputChara;
+	[SerializeField]
+	private Text inputChara;
 
 	// Use this for initialization
 	public void UpdateTargetChara (string str) {
@@ -23,4 +23,10 @@ public class MainGameView : MonoBehaviour {
 	public void UpdateGuide (string str) {
 		guide.text = str;
 	}
+
+	// Use this for initialization
+	public void UpdateInputChara (string str) {
+		inputChara.text = str;
+	}
+
 }

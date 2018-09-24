@@ -12,12 +12,16 @@ public class MainGamePresenter : MonoBehaviour {
 	[SerializeField]	
 	private MainGameView _view;
 
+	private AudioSource _typeSound;
+
 	// Use this for initialization
 	void Start () {
 
 		//モデル初期化
 		_model = new MainGameModel();
 	
+	 	//AudioSourceコンポーネントを取得し、変数に格納
+ 		_typeSound = GetComponent<AudioSource>();
 
 		//キーボードからの入力を取得する
 		var keyStream = Observable.EveryUpdate()
@@ -29,10 +33,13 @@ public class MainGamePresenter : MonoBehaviour {
     		.Where(xs => xs.Count >= 1)
             .Subscribe(x =>
             {
+				//タイプ音
+				_typeSound.PlayOneShot(_typeSound.clip);
 
 				bool rtn = CheckTargetCharactor(nowTargetChara(),x);
-				Debug.Log(rtn);
-
+				//Debug.Log(rtn);
+				//Debug.Log("入力文字:" +  Util.GetKeybordCharactor(x));
+				InputResult(rtn);
 				if(rtn == true){
 					//正解！
 					//次のターゲット文字列を設定する
@@ -123,5 +130,22 @@ public class MainGamePresenter : MonoBehaviour {
 
 		return guide;
 	}
+
+   	/// <summary>
+    /// 今回の入力結果
+    /// </summary>	
+	void InputResult(bool result){
+		string str = "";
+
+		if(result == true){
+			str ="OK";
+		}
+		else{
+			str ="NG";
+		}
+
+		_view.UpdateInputChara(str);
+
+	}	
 
 }
