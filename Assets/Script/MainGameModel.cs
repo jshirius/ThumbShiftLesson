@@ -34,7 +34,7 @@ public class MainGameModel  {
 		_kanaKeyMapInfo = Util.ReadKeyMapInfo();
 
 		//ターゲット文字列を適当に入れておく
-		_targetCharas = "あいうえおしなもをゅ";
+		_targetCharas = Util.TargetCharas();
 	
 
 		//ターゲットindexの初期化

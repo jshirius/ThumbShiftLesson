@@ -9,6 +9,24 @@ using System.IO;
 /// </summary>
 public class Util  {
 
+    /// <summary>
+    /// ターゲット文字列を取得する
+    /// </summary>
+	static public string TargetCharas(){
+        TextAsset csvFile = Resources.Load("File/target_charas") as TextAsset; 
+        StringReader reader = new StringReader(csvFile.text);
+
+		string readString = "";
+        int height = 0;
+        while(reader.Peek() > -1) {
+			
+            string line = reader.ReadLine();
+
+			readString += line;
+        }
+
+		return readString;
+	}
 
     /// <summary>
     /// キー情報を取得する
@@ -21,7 +39,7 @@ public class Util  {
         Dictionary <string,KanaKeyMapInfo> kanaKeyMapInfo = new  Dictionary <string,KanaKeyMapInfo>();
         int height = 0;
         while(reader.Peek() > -1) {
-
+			
             string line = reader.ReadLine();
 
             height++; // 行数加算
