@@ -14,6 +14,12 @@ public class MainGamePresenter : MonoBehaviour {
 
 	private AudioSource _typeSound;
 
+	[SerializeField] 
+	private GameObject _keyButtonPrefab;
+
+	[SerializeField]
+	private GameObject _keyboardController;
+
 	// Use this for initialization
 	void Start () {
 
@@ -22,6 +28,9 @@ public class MainGamePresenter : MonoBehaviour {
 	
 	 	//AudioSourceコンポーネントを取得し、変数に格納
  		_typeSound = GetComponent<AudioSource>();
+
+		//キーを並べる
+		makeKeyPos();
 
 		//キーボードからの入力を取得する
 		var keyStream = Observable.EveryUpdate()
@@ -43,7 +52,7 @@ public class MainGamePresenter : MonoBehaviour {
 					//正解！
 					//タイプ音
 					_typeSound.PlayOneShot(_typeSound.clip);					
-					
+
 					//次のターゲット文字列を設定する
 					_model.NextTargetChara();
 				}
@@ -68,6 +77,41 @@ public class MainGamePresenter : MonoBehaviour {
 
 		//ガイドの設定
 		_view.UpdateGuide(guildString(nowTargetChara()));
+	}
+
+   /// <summary>
+    /// 疑似キーボードを作成する
+    /// </summary>
+	void makeKeyPos(){
+
+		float basePosX = 12.0f;
+		float basePosY = 15.0f;
+
+		float offsetX = 15.0f;
+		float offsetY = 20.0f;
+
+		//一列目作成
+		foreach (var item in _model.KanaKeyPosInfoData)
+		{
+			KanaKeyPosInfo info = item.Value;
+
+			if(info.yPos == 2){
+				var obj = GameObject.Instantiate(_keyButtonPrefab);
+				obj.gameObject.transform.parent = _keyboardController.gameObject.transform;
+				obj.gameObject.transform.localPosition = new Vector3(basePosX + info.xPos *offsetX, basePosY + info.yPos * basePosY );
+				obj.gameObject.name = info.typeKey;
+				//文字を設定する
+			}
+		}
+		
+
+		
+
+		//2列目作成
+
+
+		//3列目作成
+
 	}
 
    /// <summary>

@@ -26,6 +26,12 @@ public class MainGameModel  {
 	 	get{return _kanaKeyMapInfo;}
 	}
 
+	//キー位置情報
+	private Dictionary <string,KanaKeyPosInfo> _kanaKeyPosInfo;
+ 	public Dictionary <string,KanaKeyPosInfo> KanaKeyPosInfoData
+	{
+	 	get{return _kanaKeyPosInfo;}
+	}
 
     // コンストラクタ
     public MainGameModel()
@@ -35,7 +41,9 @@ public class MainGameModel  {
 
 		//ターゲット文字列を適当に入れておく
 		_targetCharas = Util.TargetCharas();
-	
+
+		//キー位置情報を取得する	
+		_kanaKeyPosInfo = Util.ReadKeyPosInfo();
 
 		//ターゲットindexの初期化
 		_targetIndex = new ReactiveProperty<int>();

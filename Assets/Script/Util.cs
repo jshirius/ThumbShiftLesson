@@ -61,6 +61,39 @@ public class Util  {
 
     }
 
+  /// <summary>
+    /// キーの位置情報を取得
+    /// </summary>
+    static public Dictionary<string,KanaKeyPosInfo> ReadKeyPosInfo(){
+
+        TextAsset csvFile = Resources.Load("File/key_pos") as TextAsset; /* Resouces/CSV下のCSV読み込み */
+        StringReader reader = new StringReader(csvFile.text);
+
+        Dictionary <string,KanaKeyPosInfo> kanaKeyPosInfo = new  Dictionary <string,KanaKeyPosInfo>();
+        int height = 0;
+        while(reader.Peek() > -1) {
+			
+            string line = reader.ReadLine();
+
+            height++; // 行数加算
+            if(height == 1) continue;   //１行目はコメントのため飛ばす
+            
+
+            KanaKeyPosInfo info = new KanaKeyPosInfo();
+
+            string[] str = line.Split('\t');
+            info.typeKey = str[0];
+            info.yPos = int.Parse(str[1]);
+            info.xPos = int.Parse(str[2]);
+       
+
+            kanaKeyPosInfo[info.typeKey] = info;
+        }
+
+		return kanaKeyPosInfo;
+
+    }	
+
     /// <summary>
     /// IListをstring型に変換する
     /// </summary>
