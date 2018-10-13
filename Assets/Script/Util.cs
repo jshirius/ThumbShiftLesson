@@ -53,6 +53,7 @@ public class Util  {
             info.typeKey = str[1];
             info.leftShift = int.Parse(str[2]);
             info.rightShift = int.Parse(str[3]);
+            info.reverseShift =  int.Parse(str[4]);
 
             kanaKeyMapInfo[info.kana] = info;
         }
@@ -62,7 +63,7 @@ public class Util  {
     }
 
   /// <summary>
-    /// キーの位置情報を取得
+    /// キーの位置情報を取得（カナ文字の設定なし）
     /// </summary>
     static public Dictionary<string,KanaKeyPosInfo> ReadKeyPosInfo(){
 
@@ -93,6 +94,40 @@ public class Util  {
 		return kanaKeyPosInfo;
 
     }	
+
+  /// <summary>
+    /// キーの文字を仮名文字で補完
+    /// </summary>
+    static public void  CompletionKeyPosInfo(Dictionary<string,KanaKeyPosInfo> readKeyPosInfos){
+        //キー情報を呼び出す
+        Dictionary<string,KanaKeyMapInfo> readKeyMapInfos;
+        readKeyMapInfos = Util.ReadKeyMapInfo();
+
+        //キーボード表示のカナを設定する
+        foreach(var readKeyPosInfo in readKeyPosInfos){
+
+            //平仮名のループ
+            foreach(var readKeyMapInfo in readKeyMapInfos){
+                //キーボード表示のカナを設定する
+                if(readKeyMapInfo.Value.typeKey == readKeyPosInfo.Value.typeKey){
+                    
+                    //シフトなし
+                    if(readKeyMapInfo.Value.leftShift == 0 && readKeyMapInfo.Value.rightShift == 0){
+                        readKeyPosInfo.Value.kana1 = readKeyMapInfo.Value.kana;
+                    }else if(readKeyMapInfo.Value.reverseShift == 0 ){
+                        if(readKeyMapInfo.Value.leftShift == 1 || readKeyMapInfo.Value.rightShift == 1){
+                            readKeyPosInfo.Value.kana2 = readKeyMapInfo.Value.kana;
+                        }
+                        
+                    }else if(readKeyMapInfo.Value.reverseShift == 1){
+                        if(readKeyMapInfo.Value.leftShift == 1 || readKeyMapInfo.Value.rightShift == 1){
+                            readKeyPosInfo.Value.kana3 = readKeyMapInfo.Value.kana;
+                        }
+                    }
+                }
+            }
+        }  
+    }
 
     /// <summary>
     /// IListをstring型に変換する

@@ -77,6 +77,12 @@ public class MainGamePresenter : MonoBehaviour {
 
 		//ガイドの設定
 		_view.UpdateGuide(guildString(nowTargetChara()));
+
+		//モバイルキーボードを表示する
+		//TouchScreenKeyboard.Open("", TouchScreenKeyboardType.ASCIICapable);
+
+
+
 	}
 
    /// <summary>
@@ -84,10 +90,10 @@ public class MainGamePresenter : MonoBehaviour {
     /// </summary>
 	void makeKeyPos(){
 
-		float basePosX = 12.0f;
+		float basePosX = -410.0f;
 		float basePosY = 15.0f;
 
-		float offsetX = 15.0f;
+		float offsetX = 65.0f;
 		float offsetY = 20.0f;
 
 		//一列目作成
@@ -100,7 +106,9 @@ public class MainGamePresenter : MonoBehaviour {
 				obj.gameObject.transform.parent = _keyboardController.gameObject.transform;
 				obj.gameObject.transform.localPosition = new Vector3(basePosX + info.xPos *offsetX, basePosY + info.yPos * basePosY );
 				obj.gameObject.name = info.typeKey;
+				KeyButton infodata = obj.GetComponent<KeyButton>();
 				//文字を設定する
+				infodata.Initialization(item.Value);
 			}
 		}
 		

@@ -44,11 +44,16 @@ public class MainGameModel  {
 
 		//キー位置情報を取得する	
 		_kanaKeyPosInfo = Util.ReadKeyPosInfo();
+		Util.CompletionKeyPosInfo(_kanaKeyPosInfo);
 
 		//ターゲットindexの初期化
 		_targetIndex = new ReactiveProperty<int>();
 
     }
+
+	//KanaKeyPosInfoにデータを補完
+	//Completion
+	//public kanaKeyPosInfo
 
 	//次のターゲット文字列へ
 	public void NextTargetChara(){

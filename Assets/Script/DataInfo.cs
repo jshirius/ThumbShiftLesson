@@ -10,6 +10,7 @@ public class KanaKeyMapInfo{
     public string typeKey;//キーボードのキー
     public int leftShift;//左シフトかどうかのフラグ
     public int rightShift;//右シフトかどうかのフラグ
+    public int reverseShift; //逆シフトかどうかのフラグ
 }
 
 /// <summary>

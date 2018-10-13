@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 222266079279458384}
   - component: {fileID: 114946243776439662}
   - component: {fileID: 114011845226898476}
+  - component: {fileID: 114234061376546682}
   m_Layer: 5
   m_Name: KeyButton
   m_TagString: Untagged
@@ -138,6 +139,21 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &114234061376546682
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1319383871875838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0378721b06ec4ac380747f05eb68ec8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  typeKey: {fileID: 114554102177950510}
+  kana1: {fileID: 114623621709275732}
+  kana2: {fileID: 114289983220019384}
+  kana3: {fileID: 114308191461902292}
 --- !u!114 &114289983220019384
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -400,8 +416,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 15.5, y: -16}
-  m_SizeDelta: {x: -31, y: -32}
+  m_AnchoredPosition: {x: 15.5, y: 13}
+  m_SizeDelta: {x: -31, y: 26}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224888827660308148
 RectTransform:
@@ -418,6 +434,6 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 15.5, y: 13}
-  m_SizeDelta: {x: -31, y: 26}
+  m_AnchoredPosition: {x: 15.5, y: -15.5}
+  m_SizeDelta: {x: -31, y: -31}
   m_Pivot: {x: 0.5, y: 0.5}

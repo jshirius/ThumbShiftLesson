@@ -14,14 +14,22 @@ public class KeyButton : MonoBehaviour {
 	//タイピング対象の文字色
 
 	[SerializeField]
-	private Text TypeKey;	//英語小文字
+	private Text typeKey;	//英語小文字
 
 	[SerializeField]	
 	private Text kana1,kana2,kana3;	//日本語(シフトなし,上段シフト、逆シフト))
 
     // クリック時のイベントリスナー
     public System.Action OnClickedListener;
+	private KanaKeyPosInfo _keyInfo;
 
+	void Awake()
+	{
+		//初期化
+		kana1.text = "";
+		kana2.text = "";
+		kana3.text = "";
+	}
 	
 	// Use this for initialization
 	void Start () {
@@ -33,5 +41,21 @@ public class KeyButton : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		
+	}
+
+	//初期化処理
+	public void Initialization(KanaKeyPosInfo keyInfo){
+
+		//英語
+		typeKey.text = keyInfo.typeKey;
+
+		//下の段
+		kana1.text = keyInfo.kana1;
+
+		//上の段
+		kana2.text = keyInfo.kana2;
+
+		//逆シフト
+		kana3.text = keyInfo.kana3;
 	}
 }
