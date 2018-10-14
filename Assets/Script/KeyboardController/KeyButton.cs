@@ -31,15 +31,19 @@ public class KeyButton : MonoBehaviour {
 		kana1.text = "";
 		kana2.text = "";
 		kana3.text = "";
-	}
-	
-	// Use this for initialization
-	void Start () {
+
 		//背景色
 		baseButtonColor = gameObject.GetComponent<Image>().color;
 
 		//文字の色
 		baseCharaColor = kana1.color;
+
+
+	}
+	
+	// Use this for initialization
+	void Start () {
+
 	}
 	
 	// Update is called once per frame
@@ -63,7 +67,7 @@ public class KeyButton : MonoBehaviour {
 		kana3.text = keyInfo.kana3;
 	}
 
-	//打つ対象のボタン勝利
+	//打つ対象のボタン色
 	public void SelectKey(string kana){
 		//ボタンの色を変更する
 		gameObject.GetComponent<Image>().color = baseTargetColor;

@@ -23,12 +23,17 @@ public class MainGamePresenter : MonoBehaviour {
 	//キーボードのキャッシュ(Keyはキーボードの小文字 KanaKeyPosInfoと紐付ける)
 	private Dictionary <string,KeyButton> _keyButtons; 
 
+	//現在選択されているキー
+	private KeyButton _selectedKey ;
+
 	//シフトボタンの情報
 	[SerializeField] 
 	private ShiftButton  _rightShiftButton;
 
 	[SerializeField] 
 	private ShiftButton  _leftShiftButton;
+
+
 
 	// Use this for initialization
 	void Start () {
@@ -79,6 +84,8 @@ public class MainGamePresenter : MonoBehaviour {
 			//ガイドの設定
 			_view.UpdateGuide(guildString(nowTargetChara()));
 
+			ChangeSelectKeyborde(nowTargetChara());
+
 			Debug.Log("targetカウンター更新:" +  _model.TargetIndex.Value);
 		});
 
@@ -87,6 +94,7 @@ public class MainGamePresenter : MonoBehaviour {
 
 		//ガイドの設定
 		_view.UpdateGuide(guildString(nowTargetChara()));
+		//ChangeSelectKeyborde(nowTargetChara());
 
 		//モバイルキーボードを表示する
 		//TouchScreenKeyboard.Open("", TouchScreenKeyboardType.ASCIICapable);
@@ -99,6 +107,9 @@ public class MainGamePresenter : MonoBehaviour {
     /// 疑似キーボードを作成する
     /// </summary>
 	void makeKeyPos(){
+
+		//疑似キーボードの情報を保存しておく
+		_keyButtons = new Dictionary<string, KeyButton>();
 
 		float basePosX = -410.0f;
 		float basePosY = 82.0f;
@@ -120,6 +131,8 @@ public class MainGamePresenter : MonoBehaviour {
 				KeyButton infodata = obj.GetComponent<KeyButton>();
 				//文字を設定する
 				infodata.Initialization(item.Value);
+
+				_keyButtons[item.Value.typeKey] = infodata;
 				//infodata.SelectKey("る");
 			}
 
@@ -145,6 +158,8 @@ public class MainGamePresenter : MonoBehaviour {
 				KeyButton infodata = obj.GetComponent<KeyButton>();
 				//文字を設定する
 				infodata.Initialization(item.Value);
+
+				_keyButtons[item.Value.typeKey] = infodata;
 			}
 
 		}
@@ -167,6 +182,8 @@ public class MainGamePresenter : MonoBehaviour {
 				KeyButton infodata = obj.GetComponent<KeyButton>();
 				//文字を設定する
 				infodata.Initialization(item.Value);
+
+				_keyButtons[item.Value.typeKey] = infodata;
 			}
 
 		}
@@ -251,5 +268,34 @@ public class MainGamePresenter : MonoBehaviour {
 		_view.UpdateInputChara(str);
 
 	}	
+
+   	/// <summary>
+    /// キーボードの表示の更新
+    /// </summary>	
+	void ChangeSelectKeyborde(string kana){
+	
+
+		//現在のキーボードの表示を修正する
+		if(_selectedKey != null)
+		_selectedKey.ResetKey();
+
+		//該当するキー
+        KanaKeyMapInfo info =  _model.KanaKeyMapInfoData[kana];
+		_keyButtons[info.typeKey].SelectKey(kana);
+
+		//現在のキーボードの参照更新
+		_selectedKey = _keyButtons[info.typeKey];
+
+		//シフトの表示
+		_rightShiftButton.ResetKey();
+		_leftShiftButton.ResetKey();
+
+		if(info.rightShift == 1){
+			_rightShiftButton.SelectKey();
+		}
+		else if(info.leftShift == 1){
+			_leftShiftButton.SelectKey();
+		}
+	}		
 
 }

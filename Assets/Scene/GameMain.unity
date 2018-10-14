@@ -768,6 +768,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc79fd536cc5a4588b9ed174392666d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textCap: {fileID: 1621698609}
 --- !u!1 &1227799718
 GameObject:
   m_ObjectHideFlags: 0
@@ -965,6 +966,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc79fd536cc5a4588b9ed174392666d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textCap: {fileID: 1010736429}
 --- !u!1 &1621698607
 GameObject:
   m_ObjectHideFlags: 0
