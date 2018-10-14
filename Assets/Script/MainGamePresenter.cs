@@ -91,10 +91,10 @@ public class MainGamePresenter : MonoBehaviour {
 	void makeKeyPos(){
 
 		float basePosX = -410.0f;
-		float basePosY = 15.0f;
+		float basePosY = 82.0f;
 
 		float offsetX = 65.0f;
-		float offsetY = 20.0f;
+	
 
 		//一列目作成
 		foreach (var item in _model.KanaKeyPosInfoData)
@@ -104,22 +104,63 @@ public class MainGamePresenter : MonoBehaviour {
 			if(info.yPos == 2){
 				var obj = GameObject.Instantiate(_keyButtonPrefab);
 				obj.gameObject.transform.parent = _keyboardController.gameObject.transform;
-				obj.gameObject.transform.localPosition = new Vector3(basePosX + info.xPos *offsetX, basePosY + info.yPos * basePosY );
+				obj.gameObject.transform.localPosition = new Vector3(basePosX + info.xPos *offsetX, basePosY );
 				obj.gameObject.name = info.typeKey;
+				obj.gameObject.transform.localScale = new Vector3(1, 1, 1);
 				KeyButton infodata = obj.GetComponent<KeyButton>();
 				//文字を設定する
 				infodata.Initialization(item.Value);
 			}
+
+
+
 		}
 		
+		//２列目の基本位置
+		basePosX = -420.0f;
+		basePosY += -65.0f;
 
 		
 
 		//2列目作成
+		foreach (var item in _model.KanaKeyPosInfoData)
+		{
+			KanaKeyPosInfo info = item.Value;
 
+			if(info.yPos == 3){
+				var obj = GameObject.Instantiate(_keyButtonPrefab);
+				obj.gameObject.transform.parent = _keyboardController.gameObject.transform;
+				obj.gameObject.transform.localPosition = new Vector3(basePosX + info.xPos *offsetX, basePosY );
+				obj.gameObject.name = info.typeKey;
+				obj.gameObject.transform.localScale = new Vector3(1, 1, 1);
+				KeyButton infodata = obj.GetComponent<KeyButton>();
+				//文字を設定する
+				infodata.Initialization(item.Value);
+			}
+
+		}
 
 		//3列目作成
+		//２列目の基本位置
+		basePosX = -410.0f;
+		basePosY += -65.0f;
 
+		foreach (var item in _model.KanaKeyPosInfoData)
+		{
+			KanaKeyPosInfo info = item.Value;
+
+			if(info.yPos == 4){
+				var obj = GameObject.Instantiate(_keyButtonPrefab);
+				obj.gameObject.transform.parent = _keyboardController.gameObject.transform;
+				obj.gameObject.transform.localPosition = new Vector3(basePosX + info.xPos *offsetX, basePosY );
+				obj.gameObject.name = info.typeKey;
+				obj.gameObject.transform.localScale = new Vector3(1, 1, 1);
+				KeyButton infodata = obj.GetComponent<KeyButton>();
+				//文字を設定する
+				infodata.Initialization(item.Value);
+			}
+
+		}
 	}
 
    /// <summary>
