@@ -111,7 +111,7 @@ public class MainGamePresenter : MonoBehaviour {
 		//疑似キーボードの情報を保存しておく
 		_keyButtons = new Dictionary<string, KeyButton>();
 
-		float basePosX = -410.0f;
+		float basePosX = -355.0f;
 		float basePosY = 82.0f;
 
 		float offsetX = 65.0f;
@@ -139,7 +139,7 @@ public class MainGamePresenter : MonoBehaviour {
 		}
 		
 		//２列目の基本位置
-		basePosX = -420.0f;
+		//basePosX = -420.0f;
 		basePosY += -65.0f;
 
 		
@@ -166,7 +166,7 @@ public class MainGamePresenter : MonoBehaviour {
 
 		//3列目作成
 		//２列目の基本位置
-		basePosX = -410.0f;
+		//basePosX = -410.0f;
 		basePosY += -65.0f;
 
 		foreach (var item in _model.KanaKeyPosInfoData)

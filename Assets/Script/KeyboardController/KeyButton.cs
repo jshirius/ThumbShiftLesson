@@ -55,7 +55,7 @@ public class KeyButton : MonoBehaviour {
 	public void Initialization(KanaKeyPosInfo keyInfo){
 
 		//英語
-		typeKey.text = keyInfo.typeKey;
+		typeKey.text = keyInfo.typeKey.ToUpper();
 
 		//下の段
 		kana1.text = keyInfo.kana1;
