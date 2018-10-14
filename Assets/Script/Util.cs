@@ -64,6 +64,7 @@ public class Util  {
 
   /// <summary>
     /// キーの位置情報を取得（カナ文字の設定なし）
+    /// キーボードの小文字のリスト
     /// </summary>
     static public Dictionary<string,KanaKeyPosInfo> ReadKeyPosInfo(){
 

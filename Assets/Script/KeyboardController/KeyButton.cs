@@ -6,12 +6,14 @@ using UnityEngine.UI;
 public class KeyButton : MonoBehaviour {
 
 	Color baseCharaColor;//通常の文字色
+	Color baseButtonColor;//通常の背景の色
 
-	//タイピング対象文字色
+	//タイピング対象文字色(赤)
 	readonly Color baseTargetCharaColor = new Color(1.0f, 0.0f, 0.0f, 1.0f);
 
-	//通常時の文字色
-	//タイピング対象の文字色
+	//タイピング対象の背景色
+	readonly Color baseTargetColor = new Color(21/255f, 42/255f, 1.0f, 1.0f);
+
 
 	[SerializeField]
 	private Text typeKey;	//英語小文字
@@ -33,9 +35,11 @@ public class KeyButton : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		//文字の基本文字
-		baseCharaColor = gameObject.GetComponent<Image>().color;
+		//背景色
+		baseButtonColor = gameObject.GetComponent<Image>().color;
 
+		//文字の色
+		baseCharaColor = kana1.color;
 	}
 	
 	// Update is called once per frame
@@ -57,5 +61,34 @@ public class KeyButton : MonoBehaviour {
 
 		//逆シフト
 		kana3.text = keyInfo.kana3;
+	}
+
+	//打つ対象のボタン勝利
+	public void SelectKey(string kana){
+		//ボタンの色を変更する
+		gameObject.GetComponent<Image>().color = baseTargetColor;
+
+		//該当かな文字を変更する
+		if(kana == kana1.text ){
+			kana1.color  = baseTargetCharaColor;
+		}
+		else if(kana == kana2.text ){
+			kana2.color  = baseTargetCharaColor;
+		}	
+		else if(kana == kana3.text ){
+			kana3.color  = baseTargetCharaColor;
+		}
+
+	}
+
+	//キーの設定をもとに戻す
+	public void ResetKey(){
+		//ボタンの色を変更する
+		gameObject.GetComponent<Image>().color = baseButtonColor;
+
+		//ボタン文字色
+		kana1.color = baseCharaColor;
+		kana2.color = baseCharaColor;
+		kana3.color = baseCharaColor;
 	}
 }

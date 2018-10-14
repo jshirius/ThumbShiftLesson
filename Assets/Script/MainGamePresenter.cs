@@ -20,6 +20,16 @@ public class MainGamePresenter : MonoBehaviour {
 	[SerializeField]
 	private GameObject _keyboardController;
 
+	//キーボードのキャッシュ(Keyはキーボードの小文字 KanaKeyPosInfoと紐付ける)
+	private Dictionary <string,KeyButton> _keyButtons; 
+
+	//シフトボタンの情報
+	[SerializeField] 
+	private ShiftButton  _rightShiftButton;
+
+	[SerializeField] 
+	private ShiftButton  _leftShiftButton;
+
 	// Use this for initialization
 	void Start () {
 
@@ -110,9 +120,8 @@ public class MainGamePresenter : MonoBehaviour {
 				KeyButton infodata = obj.GetComponent<KeyButton>();
 				//文字を設定する
 				infodata.Initialization(item.Value);
+				//infodata.SelectKey("る");
 			}
-
-
 
 		}
 		
