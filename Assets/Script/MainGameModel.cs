@@ -10,6 +10,7 @@ public class MainGameModel  {
 	private string _targetCharas;
 	public string TargetCharas{
 		get{return _targetCharas;}
+		set{_targetCharas = value;}
 	}
 
 	//ターゲット文字列のindex
@@ -55,9 +56,6 @@ public class MainGameModel  {
         //キーマップ情報を取得する
 		_kanaKeyMapInfo = Util.ReadKeyMapInfo();
 
-		//ターゲット文字列を適当に入れておく
-		_targetCharas = Util.TargetCharas();
-
 		//キー位置情報を取得する	
 		_kanaKeyPosInfo = Util.ReadKeyPosInfo();
 		Util.CompletionKeyPosInfo(_kanaKeyPosInfo);
@@ -71,6 +69,8 @@ public class MainGameModel  {
 		//練習文字列のindex
 		_trainingHistoryIndex = new ReactiveProperty<int>();
 
+		//ターゲット文字列を適当に入れておく
+		_targetCharas = _trainingHistory[0].trainingString;
     }
 
 	//KanaKeyPosInfoにデータを補完
@@ -87,6 +87,12 @@ public class MainGameModel  {
 			_targetIndex.Value = 0;
 		}
 		
+	}
+
+	public void ResetTargetCharas(int index){
+		//文字設定
+		_targetIndex.Value = 0;
+		_targetCharas = _trainingHistory[index].trainingString;
 	}
 
 	//練習する文字列の位置変更
@@ -111,6 +117,7 @@ public class MainGameModel  {
 				_trainingHistoryIndex.Value--;
 			}
 		}
+
 
 	}
 

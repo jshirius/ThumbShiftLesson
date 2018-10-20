@@ -9,6 +9,7 @@ using System.IO;
 /// </summary>
 public class Util  {
 
+    /* 
     /// <summary>
     /// ターゲット文字列を取得する
     /// </summary>
@@ -27,7 +28,9 @@ public class Util  {
 
 		return readString;
 	}
+    */
 
+    
     /// <summary>
     /// キー情報を取得する
     /// </summary>

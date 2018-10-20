@@ -54,11 +54,9 @@ public class MainGamePresenter : MonoBehaviour {
 
 		//同時押しの間隔を200msにする
 		keyStream.Buffer(keyStream.Throttle(TimeSpan.FromMilliseconds(200)))
-    		.Where(xs => xs.Count >= 1)
-            .Subscribe(x =>
+    	.Where(xs => xs.Count >= 1)
+    	.Subscribe(x =>
             {
-
-
 				bool rtn = CheckTargetCharactor(nowTargetChara(),x);
 				//Debug.Log(rtn);
 				//Debug.Log("入力文字:" +  Util.GetKeybordCharactor(x));
@@ -72,7 +70,7 @@ public class MainGamePresenter : MonoBehaviour {
 					_model.NextTargetChara();
 				}
 
-            });
+        });
 
 		//カウンター監視
 		_model.TargetIndex
@@ -97,6 +95,18 @@ public class MainGamePresenter : MonoBehaviour {
 			string data = _model.TrainingHistory[x].caption;
 			_view.SelectCaption(data);
 			Debug.Log("TrainingHistoryIndex更新:" +  _model.TrainingHistoryIndex.Value);
+
+			//テキスト設定
+			_model.ResetTargetCharas(x);
+			//現在の入力文字を表示する
+			_view.UpdateTargetChara(nowTargetChara());
+
+			//ガイドの設定
+			_view.UpdateGuide(guildString(nowTargetChara()));
+
+			ChangeSelectKeyborde(nowTargetChara());
+		
+			
 		});
 
 	 	//現在の入力文字を表示する
