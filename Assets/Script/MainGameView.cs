@@ -14,6 +14,13 @@ public class MainGameView : MonoBehaviour {
 	[SerializeField]
 	private Text inputChara;
 
+	[SerializeField]
+	private Text selectCaption;	
+
+	//リスナー設定
+	public System.Action OnSelectLeftClickedListener;
+	public System.Action OnSelectRightClickedListener;
+
 	// Use this for initialization
 	public void UpdateTargetChara (string str) {
 		targetChara.text = str;
@@ -28,5 +35,24 @@ public class MainGameView : MonoBehaviour {
 	public void UpdateInputChara (string str) {
 		inputChara.text = str;
 	}
+
+	public void SelectCaption (string str) {
+		selectCaption.text = str;
+	}
+
+	
+
+	public void OnSelectLeftClicked(){
+		if(OnSelectLeftClickedListener != null){
+			OnSelectLeftClickedListener();
+		}
+	}
+
+	public void OnSelectRightClicked(){
+		if(OnSelectRightClickedListener != null){
+			OnSelectRightClickedListener();
+		}
+	}
+
 
 }

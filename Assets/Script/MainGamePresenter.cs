@@ -89,6 +89,16 @@ public class MainGamePresenter : MonoBehaviour {
 			Debug.Log("targetカウンター更新:" +  _model.TargetIndex.Value);
 		});
 
+		//練習対象の文字列変更ボタンが押された
+		_model.TrainingHistoryIndex
+		.Subscribe(x=>
+		{
+			//練習対象の文字列の設定
+			string data = _model.TrainingHistory[x].caption;
+			_view.SelectCaption(data);
+			Debug.Log("TrainingHistoryIndex更新:" +  _model.TrainingHistoryIndex.Value);
+		});
+
 	 	//現在の入力文字を表示する
 		_view.UpdateTargetChara(nowTargetChara());
 
@@ -99,8 +109,15 @@ public class MainGamePresenter : MonoBehaviour {
 		//モバイルキーボードを表示する
 		//TouchScreenKeyboard.Open("", TouchScreenKeyboardType.ASCIICapable);
 
+		//イベント設定
+		SetEvent();
 
+	}
 
+	//イベント設定
+	void SetEvent(){
+		_view.OnSelectLeftClickedListener = OnSelectLeftClicked;
+		_view.OnSelectRightClickedListener = OnSelectRightClicked;
 	}
 
    /// <summary>
@@ -296,6 +313,18 @@ public class MainGamePresenter : MonoBehaviour {
 		else if(info.leftShift == 1){
 			_leftShiftButton.SelectKey();
 		}
-	}		
+	}
+
+	//左矢印ボタン押した
+	private void OnSelectLeftClicked(){
+		//カウンターを下げる
+		_model.ChangeTrainingHistory(true);
+	}
+
+	//右矢印ボタン押した
+	private void OnSelectRightClicked(){
+		//カウンターを１つ上げる
+		_model.ChangeTrainingHistory(false);
+	}
 
 }

@@ -145,5 +145,38 @@ public class Util  {
         return str;
     }
 
+    /// <summary>
+    /// キーの練習用シナリオ情報
+    /// </summary>
+    static public List<TrainingHistoryInfo> ReadTrainingHistory(){
+
+        TextAsset csvFile = Resources.Load("File/training_history") as TextAsset; /* Resouces/CSV下のCSV読み込み */
+        StringReader reader = new StringReader(csvFile.text);
+
+        List<TrainingHistoryInfo>  datas = new  List<TrainingHistoryInfo> ();
+
+        int height = 0;
+        while(reader.Peek() > -1) {
+			
+            string line = reader.ReadLine();
+
+            height++; // 行数加算
+            if(height == 1) continue;   //１行目はコメントのため飛ばす
+            
+
+            TrainingHistoryInfo data = new TrainingHistoryInfo();
+
+            string[] str = line.Split('\t');
+            data.no = int.Parse(str[0]);
+            data.caption = str[1];
+            data.trainingString = str[2];
+
+            datas.Add(data);
+        }
+
+		return datas;
+
+    }
+
 
 }

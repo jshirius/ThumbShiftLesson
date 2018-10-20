@@ -33,6 +33,22 @@ public class MainGameModel  {
 	 	get{return _kanaKeyPosInfo;}
 	}
 
+	//キーの練習用シナリオ情報
+	//training_history
+	private List<TrainingHistoryInfo> _trainingHistory;
+ 	public List<TrainingHistoryInfo> TrainingHistory
+	{
+	 	get{return _trainingHistory;}
+	}
+
+	//練習シナリオのindex
+	private ReactiveProperty<int> _trainingHistoryIndex;
+    public IReadOnlyReactiveProperty<int> TrainingHistoryIndex
+    {
+        get { return _trainingHistoryIndex; }
+    }
+
+
     // コンストラクタ
     public MainGameModel()
     {
@@ -46,8 +62,14 @@ public class MainGameModel  {
 		_kanaKeyPosInfo = Util.ReadKeyPosInfo();
 		Util.CompletionKeyPosInfo(_kanaKeyPosInfo);
 
+		//練習ファイルを読み込む
+		_trainingHistory = Util.ReadTrainingHistory();
+
 		//ターゲットindexの初期化
 		_targetIndex = new ReactiveProperty<int>();
+
+		//練習文字列のindex
+		_trainingHistoryIndex = new ReactiveProperty<int>();
 
     }
 
@@ -66,4 +88,30 @@ public class MainGameModel  {
 		}
 		
 	}
+
+	//練習する文字列の位置変更
+	//dec true:マイナス  false:プラス
+	public void ChangeTrainingHistory(bool dec){
+
+		//プラスの場合の処理
+		if(dec == false){
+			if(_trainingHistoryIndex.Value  >= _trainingHistory.Count -1  ){
+				_trainingHistoryIndex.Value = 0;
+			}
+			else{
+				_trainingHistoryIndex.Value++;
+			}
+		}
+		//マイナスのとき
+		else{
+			if(_trainingHistoryIndex.Value <= 0){
+				_trainingHistoryIndex.Value = _trainingHistory.Count -1 ;
+			}
+			else{
+				_trainingHistoryIndex.Value--;
+			}
+		}
+
+	}
+
 }

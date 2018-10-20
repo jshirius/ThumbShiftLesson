@@ -24,3 +24,12 @@ public class KanaKeyPosInfo{
 	public int yPos;	//y位置
 	public int xPos;	//x位置
 }
+
+/// <summary>
+/// キーの練習用シナリオ情報
+/// </summary>
+public class TrainingHistoryInfo{
+	public int no;	//番号
+    public string caption;//ゲームに表示する文字列
+    public string trainingString;//実際に練習するおじ
+}
