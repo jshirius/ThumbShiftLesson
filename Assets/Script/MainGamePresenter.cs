@@ -15,7 +15,7 @@ public class MainGamePresenter : MonoBehaviour {
 	private AudioSource _typeSound;
 
 	[SerializeField] 
-	private GameObject _keyButtonPrefab;
+	private GameObject _keyButtonPrefab, _keyBaseObject;
 
 	[SerializeField]
 	private GameObject _keyboardController;
@@ -218,7 +218,7 @@ public class MainGamePresenter : MonoBehaviour {
 
 			if(info.yPos == 2){
 				var obj = GameObject.Instantiate(_keyButtonPrefab);
-				obj.gameObject.transform.parent = _keyboardController.gameObject.transform;
+				obj.gameObject.transform.parent = _keyBaseObject.gameObject.transform;
 				obj.gameObject.transform.localPosition = new Vector3(basePosX + info.xPos *offsetX, basePosY );
 				obj.gameObject.name = info.typeKey;
 				obj.gameObject.transform.localScale = new Vector3(1, 1, 1);
@@ -245,7 +245,7 @@ public class MainGamePresenter : MonoBehaviour {
 
 			if(info.yPos == 3){
 				var obj = GameObject.Instantiate(_keyButtonPrefab);
-				obj.gameObject.transform.parent = _keyboardController.gameObject.transform;
+				obj.gameObject.transform.parent = _keyBaseObject.gameObject.transform;
 				obj.gameObject.transform.localPosition = new Vector3(basePosX + info.xPos *offsetX, basePosY );
 				obj.gameObject.name = info.typeKey;
 				obj.gameObject.transform.localScale = new Vector3(1, 1, 1);
@@ -269,7 +269,7 @@ public class MainGamePresenter : MonoBehaviour {
 
 			if(info.yPos == 4){
 				var obj = GameObject.Instantiate(_keyButtonPrefab);
-				obj.gameObject.transform.parent = _keyboardController.gameObject.transform;
+				obj.gameObject.transform.parent = _keyBaseObject.gameObject.transform;
 				obj.gameObject.transform.localPosition = new Vector3(basePosX + info.xPos *offsetX, basePosY );
 				obj.gameObject.name = info.typeKey;
 				obj.gameObject.transform.localScale = new Vector3(1, 1, 1);
