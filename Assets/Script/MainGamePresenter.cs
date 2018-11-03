@@ -34,7 +34,6 @@ public class MainGamePresenter : MonoBehaviour {
 	private ShiftButton  _leftShiftButton;
 
 	private const float InputInterInterval = 0.2f;
-	private bool busyInput = false;
 	private float inputBusyTime = 0.0f;
 
 
@@ -53,16 +52,19 @@ public class MainGamePresenter : MonoBehaviour {
 
 		//キーボードからの入力を取得する
 		_view.OnIosKeyClicked();
-		var keyStream = Observable.EveryUpdate()
-		.Select(_ => _view.touchKeyboard.text) ;
-		//.Where(xs => _view.touchKeyboard.text.Length > 0);
 
+#if UNITY_WEBGL || UNITY_EDITOR
+		var keyStream = Observable.EveryUpdate()
+		.Select(_ => Input.inputString) 
+		.Where(xs => Input.anyKeyDown);
+
+	
 		//同時押しの間隔を200msにする
 		keyStream.Buffer(keyStream.Throttle(TimeSpan.FromMilliseconds(200)))
-    	.Where(xs => xs.Count >= 0)
+    	.Where(xs => xs.Count >= 1)
     	.Subscribe(x =>
             {
-				/* 
+				
 				Debug.Log("入力文字:" +  x);
 				if(x.Count > 0){
 				
@@ -79,11 +81,8 @@ public class MainGamePresenter : MonoBehaviour {
 						_model.NextTargetChara();
 					}
 				}
-				_view.touchKeyboard.text ="";
-				*/
-
         });
-
+#endif
 		//カウンター監視
 		_model.TargetIndex
         .Subscribe(x=> 
@@ -128,17 +127,23 @@ public class MainGamePresenter : MonoBehaviour {
 		_view.UpdateGuide(guildString(nowTargetChara()));
 		//ChangeSelectKeyborde(nowTargetChara());
 
-		//モバイルキーボードを表示する
-		//TouchScreenKeyboard.Open("", TouchScreenKeyboardType.ASCIICapable);
-
 		//イベント設定
 		SetEvent();
 
 	}
 
 	void Update(){
+
+		//IOSの入力処理
+		IosInputMain();
+	}
+
+	void IosInputMain(){
+		//この処理はIOSのとき実行
+#if UNITY_IPHONE && !UNITY_EDITOR
 		//Debug.Log("text:" +  _view.touchKeyboard.text);
 		
+
 		string text = _view.touchKeyboard.text.ToLower()  ;
 
 		//一文字目の判定
@@ -176,10 +181,8 @@ public class MainGamePresenter : MonoBehaviour {
 				//状態リセット
 				InputStatusReset();
 			}
-
-			
 		}
-		
+#endif
 	}
 
 	void InputStatusReset(){
