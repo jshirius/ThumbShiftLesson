@@ -33,6 +33,10 @@ public class MainGamePresenter : MonoBehaviour {
 	[SerializeField] 
 	private ShiftButton  _leftShiftButton;
 
+	private const float InputInterInterval = 0.2f;
+	private bool busyInput = false;
+	private float inputBusyTime = 0.0f;
+
 
 
 	// Use this for initialization
@@ -48,27 +52,35 @@ public class MainGamePresenter : MonoBehaviour {
 		makeKeyPos();
 
 		//キーボードからの入力を取得する
+		_view.OnIosKeyClicked();
 		var keyStream = Observable.EveryUpdate()
-		.Select(_ => Input.inputString) 
-		.Where(xs => Input.anyKeyDown);
+		.Select(_ => _view.touchKeyboard.text) ;
+		//.Where(xs => _view.touchKeyboard.text.Length > 0);
 
 		//同時押しの間隔を200msにする
 		keyStream.Buffer(keyStream.Throttle(TimeSpan.FromMilliseconds(200)))
-    	.Where(xs => xs.Count >= 1)
+    	.Where(xs => xs.Count >= 0)
     	.Subscribe(x =>
             {
-				bool rtn = CheckTargetCharactor(nowTargetChara(),x);
-				//Debug.Log(rtn);
-				//Debug.Log("入力文字:" +  Util.GetKeybordCharactor(x));
-				InputResult(rtn);
-				if(rtn == true){
-					//正解！
-					//タイプ音
-					_typeSound.PlayOneShot(_typeSound.clip);					
+				/* 
+				Debug.Log("入力文字:" +  x);
+				if(x.Count > 0){
+				
+					bool rtn = CheckTargetCharactor(nowTargetChara(),x);
+					//Debug.Log(rtn);
+					
+					InputResult(rtn);
+					if(rtn == true){
+						//正解！
+						//タイプ音
+						_typeSound.PlayOneShot(_typeSound.clip);					
 
-					//次のターゲット文字列を設定する
-					_model.NextTargetChara();
+						//次のターゲット文字列を設定する
+						_model.NextTargetChara();
+					}
 				}
+				_view.touchKeyboard.text ="";
+				*/
 
         });
 
@@ -122,6 +134,58 @@ public class MainGamePresenter : MonoBehaviour {
 		//イベント設定
 		SetEvent();
 
+	}
+
+	void Update(){
+		//Debug.Log("text:" +  _view.touchKeyboard.text);
+		
+		string text = _view.touchKeyboard.text.ToLower()  ;
+
+		//一文字目の判定
+		if(text.Length > 0){
+		
+			//busyInput = true;
+			Debug.Log("入力文字:" + text);
+			inputBusyTime += Time.deltaTime;
+
+			//入力文字列のチェック
+			bool rtn = CheckTargetCharactor(nowTargetChara(),text);
+			if(rtn == false){
+				//間違っていても時間が経過していなければ次のフレームでチェック
+				if(inputBusyTime < InputInterInterval){
+					return;
+				}
+			}
+			//Debug.Log(rtn);
+			
+			InputResult(rtn);
+			if(rtn == true){
+				//正解！
+				//タイプ音
+				_typeSound.PlayOneShot(_typeSound.clip);					
+
+				//次のターゲット文字列を設定する
+				_model.NextTargetChara();
+
+				//状態リセット
+				InputStatusReset();
+			}
+
+			//設定した時間が過ぎたらリセットする
+			if(inputBusyTime >= InputInterInterval){
+				//状態リセット
+				InputStatusReset();
+			}
+
+			
+		}
+		
+	}
+
+	void InputStatusReset(){
+		inputBusyTime = 0;
+		//busyInput = false;
+		_view.touchKeyboard.text ="";
 	}
 
 	//イベント設定
@@ -236,6 +300,41 @@ public class MainGamePresenter : MonoBehaviour {
 
         //文字判定
         string strInput = Util.GetKeybordCharactor(inputdatas);
+        if(shiftOn == true){
+            //２文字以上
+            if((strInput.Contains(" "+ info.typeKey)) || (strInput.Contains(info.typeKey + " "))){
+                rtn = true;
+            }
+        }else{
+            //１文字
+            if(info.typeKey == strInput){
+                rtn = true;
+            }
+        }
+        return rtn;
+    }
+
+
+	  /// <summary>
+    /// 入力された文字が、ターゲットどおりになっているか判定する
+    /// </summary>
+    bool CheckTargetCharactor(string targetChara, string inputdatas){
+        bool rtn = false;
+        bool shiftOn = false;
+
+        //targetCharaから判定文字を選択する
+        KanaKeyMapInfo info =  _model.KanaKeyMapInfoData[targetChara];
+        
+        //シフト判定
+        if(info.leftShift == 1 || info.rightShift == 1){
+            shiftOn = true;
+        }
+
+        //親指シフト判定
+        Debug.Log("ターゲット文字:" + targetChara);
+
+        //文字判定
+        string strInput = inputdatas;
         if(shiftOn == true){
             //２文字以上
             if((strInput.Contains(" "+ info.typeKey)) || (strInput.Contains(info.typeKey + " "))){

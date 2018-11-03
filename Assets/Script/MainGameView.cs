@@ -17,9 +17,14 @@ public class MainGameView : MonoBehaviour {
 	[SerializeField]
 	private Text selectCaption;	
 
+	[SerializeField]
+	private Text debugkeyboard;	
+
 	//リスナー設定
 	public System.Action OnSelectLeftClickedListener;
 	public System.Action OnSelectRightClickedListener;
+
+	public TouchScreenKeyboard touchKeyboard;
 
 	// Use this for initialization
 	public void UpdateTargetChara (string str) {
@@ -54,5 +59,16 @@ public class MainGameView : MonoBehaviour {
 		}
 	}
 
+	public void OnIosKeyClicked(){
+		Debug.Log("OnIosKeyClicked" );
+		touchKeyboard = TouchScreenKeyboard.Open("", TouchScreenKeyboardType.ASCIICapable);
+		TouchScreenKeyboard.hideInput = true;
+	}
+
+	void Update(){
+		if(touchKeyboard != null){
+			debugkeyboard.text = touchKeyboard.text;
+		}
+	}
 
 }
